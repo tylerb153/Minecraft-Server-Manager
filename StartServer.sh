@@ -1,6 +1,6 @@
 #!/bin/bash
-if ! pgrep -f "java -Xmx12G -jar server.jar nogui" >/dev/null; then
+if ! pgrep -f "java -Xmx12G -jar fabric-server-launch.jar nogui" >/dev/null; then
     echo "Starting server"
-    # java -Xmx12G -jar server.jar nogui &
+    # java -Xmx12G -jar fabric-server-launch.jar nogui
 fi
 
