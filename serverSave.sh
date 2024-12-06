@@ -1,21 +1,18 @@
 #!/bin/bash
 
 # Paths
-SERVER_PATH="~/Desktop/Minecraft_Server"
-BACKUP_PATH="~/Desktop/Minecraft_Backups"
+SERVER_PATH=/home/tyler/Desktop/Fabric_Minecraft_Server
+BACKUP_PATH=/home/tyler/Desktop/Minecraft_Backups
 
 if [ ! -d "$BACKUP_PATH" ]; then
     mkdir "$BACKUP_PATH"
 fi
 
 # Date variables
-DATE=$(date +%m/%d/%y)
+DATE=$(date +%m-%d-%y)
 
 echo "Stopping Minecraft server..."
 python3 "$SERVER_PATH/serverStop.py"
-
-# Wait for 15 seconds to ensure server has stopped
-sleep 15
 
 echo "Copying world to backup folder..."
 cp -r "$SERVER_PATH/world" "$BACKUP_PATH/world"
@@ -47,4 +44,10 @@ echo "Completed Backup Successfully..."
 echo "Deleting world copy..."
 rm -rf "$BACKUP_PATH/world"
 
+# Delete old backups
 echo "Deleting old backup"
+
+DELETE_DATE=$(date -d "-1 week" +"%m-%d-%y")
+echo $DELETE_DATE
+
+find . -type f -name "$DELETE_DATE*" -print -delete
